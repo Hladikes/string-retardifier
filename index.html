@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String retardifier DEMO</title>
+    <script src="./strRetardifier.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        box-sizing: border-box;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+      }
+
+      .container {
+        margin: 32px auto;
+        padding: 0 16px;
+        max-width: 1200px;
+      }
+
+      h1 {
+        font-size: 40px;
+        font-weight: 100;
+      }
+
+      textarea {
+        resize: none;
+        width: 100%;
+        padding: 8px;
+        margin: 16px 0;
+        font-size: 20px;
+        font-family: monospace;
+      }
+
+      button {
+        padding: 8px;
+        font-size: 20px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>String retardifier DEMO</h1>
+      <textarea id="inputTxt" style="height: 150px" placeholder="Paste here your text"></textarea>
+      <button id="convertButton">Retardify</button>
+      <textarea id="outputTxt" style="height: 300px" placeholder="Output text"></textarea>
+      <p><center><i>Open devtools and copy-paste the output into a console and see the result</i></center></p>
+    </div>
+
+    <script>
+      const convertButton = document.getElementById('convertButton')
+      const inputTxt = document.getElementById('inputTxt')
+      const outputTxt = document.getElementById('outputTxt')
+
+      convertButton.addEventListener('click', convert)
+
+      function convert() {
+        outputTxt.value = strRetardify(inputTxt.value)
+      }
+    </script>
+  </body>
+</html>
