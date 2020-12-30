@@ -30,7 +30,7 @@
         resize: none;
         width: 100%;
         padding: 8px;
-        margin: 16px 0;
+        margin: 8px 0;
         font-size: 20px;
         font-family: monospace;
       }
@@ -46,7 +46,6 @@
     <div class="container">
       <h1>String retardifier DEMO</h1>
       <textarea id="inputTxt" style="height: 150px" placeholder="Paste here your text"></textarea>
-      <button id="convertButton">Retardify</button>
       <textarea id="outputTxt" style="height: 300px" placeholder="Output text"></textarea>
       <p><center><i>Open devtools and copy-paste the output into a console and see the result</i></center></p>
     </div>
@@ -56,9 +55,12 @@
       const inputTxt = document.getElementById('inputTxt')
       const outputTxt = document.getElementById('outputTxt')
 
-      convertButton.addEventListener('click', convert)
+      inputTxt.addEventListener('keyup', convert)
 
       function convert() {
+        // outputTxt.value = inputTxt.value 
+        //                     ? strRetardify(inputTxt.value)
+        //                     : ''
         outputTxt.value = strRetardify(inputTxt.value)
       }
     </script>
