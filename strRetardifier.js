@@ -29,18 +29,30 @@
 //      => ((()=>{try{eval('[')}catch(e){return''+e}})())
 
 const retardedDictionary = {
-  'a': "(+!![]-(''+{})+'')[+!![]]",
+  'a': [
+    "(+!![]-(''+{})+'')[+!![]]",
+    "(![]+[])[+!+[]]"
+  ],
   'b': "({}+'')[+!![]+!![]]",
   'c': "({}+'')[+!![]+!![]+!![]+!![]+!![]]",
   'd': "({}[+[]]+'')[+!![]+!![]]",
   'e': "(!!(+!![])+'')[+!![]+!![]+!![]]",
-  'f': "(!+!![]+'')[+[]]",
+  'f': [
+    "(!+!![]+'')[+[]]",
+    "(![]+[])[+[]]"
+  ],
   'g': "(typeof'')[(+!![]<<!![]<<!![])+!![]]",
   'h': "((()=>{try{h}catch(e){return''+e}})())[+!![]<<!![]<<!![]<<!![]<<!![]]",
-  'i': "({}[+[]]+'')[+!![]+!![]+!![]+!![]+!![]]",
+  'i': [
+    "({}[+[]]+'')[+!![]+!![]+!![]+!![]+!![]]",
+    "([![]]+[][[]])[+!+[]+[+[]]]"
+  ],
   'j': "({}+'')[+!![]+!![]+!![]]",
   'k': "((()=>{try{k}catch(e){return''+e}})())[+!![]<<!![]<<!![]<<!![]<<!![]]",
-  'l': "(!+!![]+'')[+!![]+!![]]",
+  'l': [
+    "(!+!![]+'')[+!![]+!![]]",
+    "(![]+[])[!+[]+!+[]]"
+  ],
   'm': "(typeof(+[]))[+!![]<<!![]]",
   'n': "(typeof(()=>{}))[+!![]+!![]]",
   'o': "({}+'')[+!![]]",
@@ -84,7 +96,24 @@ const retardedDictionary = {
   '9': "((!![]<<!![]<<!![]<<!![])+!![]+'')",
 }
 
+// https://stackoverflow.com/a/24137301
+Array.prototype.random = function () {
+  return this[Math.floor((Math.random()*this.length))];
+}
+
 function strRetardify(str) {
   str = str.toLowerCase()
-  return [...str].map(c => retardedDictionary[c] || `'${c}'`).join('+')
+  return [...str].map(c => {
+    let rc = retardedDictionary[c]
+
+    if (!rc) return `'${c}'`
+
+    if (typeof rc === 'string') {
+      return rc
+    } else if (rc.push) {
+      return rc.random()
+    } else {
+      throw 'Invalid value type. Only string and array is supported'
+    }
+  }).join('+')
 }
