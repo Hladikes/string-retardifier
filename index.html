@@ -7,6 +7,12 @@
     <script src="./strRetardifier.js"></script>
 
     <style>
+      :root {
+        --bg: #F1F1F1;
+        --txt: black;
+        --input: rgba(0, 0, 0, 0.075);
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -18,6 +24,10 @@
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
       }
 
+      html, body {
+        background-color: var(--bg);
+      }
+
       .container {
         margin: 32px auto;
         padding: 0 16px;
@@ -25,6 +35,7 @@
       }
 
       h1 {
+        color: var(--txt);
         font-size: 40px;
         font-weight: 100;
         margin-left: 16px;
@@ -32,6 +43,7 @@
       }
 
       textarea {
+        color: var(--txt);
         resize: none;
         width: 100%;
         padding: 16px;
@@ -39,7 +51,7 @@
         margin: 8px 0;
         font-size: 20px;
         font-family: monospace;
-        background-color: rgba(0, 0, 0, 0.075);
+        background-color: var(--input);
         border-radius: 8px;
       }
 
@@ -47,10 +59,16 @@
         box-shadow: 0 0 0 2px gray;
       }
 
-      button {
-        padding: 8px;
-        font-size: 20px;
-        width: 100%;
+      p, i {
+        color: var(--txt);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #212121;
+          --txt: #EEEEEE;
+          --input: rgba(255, 255, 255, 0.065);
+        }
       }
     </style>
   </head>
