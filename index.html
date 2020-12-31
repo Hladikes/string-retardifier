@@ -11,6 +11,7 @@
         --bg: #F1F1F1;
         --txt: black;
         --input: rgba(0, 0, 0, 0.075);
+        --link: #009688;
       }
 
       * {
@@ -59,8 +60,21 @@
         box-shadow: 0 0 0 2px gray;
       }
 
-      p, i {
+      p {
+        text-align: center;
         color: var(--txt);
+      }
+
+      a {
+        color: var(--link);
+        font-size: 20px;
+        margin-top: 16px;
+        display: inline-block;
+        border: 2px solid var(--link);
+        padding: 12px 20px;
+        border-radius: 999px;
+        word-break: break-all;
+        text-decoration: none;
       }
 
       @media (prefers-color-scheme: dark) {
@@ -68,6 +82,7 @@
           --bg: #212121;
           --txt: #EEEEEE;
           --input: rgba(255, 255, 255, 0.065);
+          --link: #eeeb35;
         }
       }
     </style>
@@ -77,7 +92,8 @@
       <h1>🤡 String retardifier DEMO</h1>
       <textarea id="inputTxt" style="height: 150px" placeholder="Paste here your text"></textarea>
       <textarea id="outputTxt" style="height: 300px" placeholder="Output text"></textarea>
-      <p><center><i>Open devtools and copy-paste the output into a console and see the result</i></center></p>
+      <p><i>Open devtools and copy-paste the output into a console and see the result</i></p>
+      <p><a target="_blank" href="https://github.com/Hladikes/string-retardifier">https://github.com/Hladikes/string-retardifier</a></p>
     </div>
 
     <script>
