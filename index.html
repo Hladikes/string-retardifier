@@ -11,6 +11,9 @@
         margin: 0;
         padding: 0;
         outline: 0;
+        border: 0;
+        appearance: none;
+        -webkit-appearance: none;
         box-sizing: border-box;
         font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
       }
@@ -24,15 +27,23 @@
       h1 {
         font-size: 40px;
         font-weight: 100;
+        margin-left: 16px;
+        margin-bottom: 24px;
       }
 
       textarea {
         resize: none;
         width: 100%;
-        padding: 8px;
+        padding: 12px;
         margin: 8px 0;
         font-size: 20px;
         font-family: monospace;
+        background-color: rgba(0, 0, 0, 0.075);
+        border-radius: 8px;
+      }
+
+      textarea:focus {
+        box-shadow: 0 0 0 2px gray;
       }
 
       button {
@@ -44,7 +55,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>String retardifier DEMO</h1>
+      <h1>🤡 String retardifier DEMO</h1>
       <textarea id="inputTxt" style="height: 150px" placeholder="Paste here your text"></textarea>
       <textarea id="outputTxt" style="height: 300px" placeholder="Output text"></textarea>
       <p><center><i>Open devtools and copy-paste the output into a console and see the result</i></center></p>
@@ -55,14 +66,9 @@
       const inputTxt = document.getElementById('inputTxt')
       const outputTxt = document.getElementById('outputTxt')
 
-      inputTxt.addEventListener('keyup', convert)
-
-      function convert() {
-        // outputTxt.value = inputTxt.value 
-        //                     ? strRetardify(inputTxt.value)
-        //                     : ''
+      inputTxt.addEventListener('keyup', () => {
         outputTxt.value = strRetardify(inputTxt.value)
-      }
+      })
     </script>
   </body>
 </html>
