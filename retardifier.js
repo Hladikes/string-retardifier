@@ -68,7 +68,9 @@ const retardedDictionary = {
   'y': "((+!![]<<!![]<<!![]<<!![]<<!![])**(+!![]<<!![]<<!![]<<!![]<<!![]<<!![]<<!![]<<!![]<<!![])+[])[(+!![]<<!![]<<!![]<<!![])-!![]]",
   'z': "((()=>{try{z}catch(e){return[]+e}})())[+!![]<<!![]<<!![]<<!![]<<!![]]",
 
-  // Special characters
+  'S': "((()=>{try{eval('[')}catch(e){return[]+e}})())[(+[]+[])]",
+  'C': "((()=>{try{({})[(+[]+[])][(+[]+[])]}catch(e){return[]+e}})())[+((!![]<<!![]<<!![]<<!![])+!![]+[])+(+((!![]<<!![])+[]))]",
+
   '.': "(+!![]/(+!![]<<!![])+[])[+!![]]",
   ',': "([[],[]]+[])",
   ' ': "({}+[])[(+!![]<<!![]<<!![]<<!![])-!![]]",
@@ -96,24 +98,46 @@ const retardedDictionary = {
   '9': "((!![]<<!![]<<!![]<<!![])+!![]+[])",
 }
 
-// https://stackoverflow.com/a/24137301
-Array.prototype.random = function () {
-  return this[Math.floor((Math.random()*this.length))];
+const getRandomItem = (arr) => arr[Math.floor((Math.random() * arr.length))]
+
+const retardifyChar = (c) => {
+  if (!(c in retardedDictionary)) return
+
+  const selection = retardedDictionary[c]
+
+  if (selection.constructor === String) {
+    return selection
+  }
+
+  if (selection.constructor === Array) {
+    return getRandomItem(selection)
+  }
 }
 
-function strRetardify(str) {
-  str = str.toLowerCase()
-  return [...str].map(c => {
-    let rc = retardedDictionary[c]
+const retardifyUnknownChar = (c, globalContext = 'globalThis') => {
+  const charCode = c.charCodeAt(0) + ''
+  const retardedCharCode = retardifyString(charCode)
+  const retardedStringConstructor = retardifyString('String')
+  const retardedFromCharCodeFn = retardifyString('fromCharCode')
 
-    if (!rc) return `'${c}'`
+  // console.log({
+  //   charCode,
+  //   retardedCharCode,
+  //   retardedStringConstructor,
+  //   retardedFromCharCodeFn
+  // })
 
-    if (typeof rc === 'string') {
-      return rc
-    } else if (rc.push) {
-      return rc.random()
-    } else {
-      throw 'Invalid value type. Only string and array is supported'
+  return `${globalContext}[${retardedStringConstructor}][${retardedFromCharCodeFn}](+(${retardedCharCode}))`
+}
+
+const retardifyString = (str) => {
+  return [...str].map(char => {
+    let retardedChar = retardifyChar(char)
+
+    if (!retardedChar) {
+      retardedChar = retardifyUnknownChar(char)
     }
+
+    return `(${retardedChar})`
   }).join('+')
 }
